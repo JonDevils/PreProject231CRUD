@@ -1,11 +1,8 @@
 package web.controller;
+import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import web.service.UserService;
 
@@ -21,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public ModelAndView allUsers() {
         List<User> users = userService.allUsers();
         ModelAndView modelAndView = new ModelAndView();
@@ -30,18 +27,18 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @GetMapping(value = "/add")
     public String addPage() {
         return "addUser";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public String addUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") long id) {
         User user = userService.getById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -50,13 +47,13 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping(value = "/edit")
     public String editUser(@ModelAttribute("user") User user) {
-        userService.save(user);
+        userService.updateUser(user);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         User user = userService.getById(id);
         userService.delete(user);

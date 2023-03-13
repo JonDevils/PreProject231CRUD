@@ -8,4 +8,5 @@ public interface UserService {
     void save(User user);
     void delete(User user);
     User getById(Long id);
+    void updateUser(User user);
 }
