@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Component
-@Transactional
 public class UserDAOImpl implements UserDAO {
     public UserDAOImpl() {
     }
@@ -44,6 +43,7 @@ public class UserDAOImpl implements UserDAO {
 //        User managed = entityManager.merge(user);
 //        entityManager.persist(managed);
         entityManager.persist(user);
+//        entityManager.merge(user);
     }
     @Override
     public void updateUser(User user) {
